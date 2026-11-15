@@ -1,0 +1,145 @@
+[
+  {
+    "name": "Clean inbound lead from a real browser",
+    "expectedVerdict": "allow",
+    "ip": "203.0.113.10",
+    "secondsToFill": 42,
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+      "accept-language": "en-US,en;q=0.9",
+      "origin": "https://www.example.com",
+      "referer": "https://www.example.com/contact?utm_source=google&utm_medium=cpc&utm_campaign=q4-demo",
+      "sec-fetch-site": "same-site",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-dest": "empty",
+      "sec-ch-ua": "\"Chromium\";v=\"130\", \"Google Chrome\";v=\"130\", \"Not?A_Brand\";v=\"99\""
+    },
+    "body": {
+      "email": "jane.doe@acme.example",
+      "firstname": "Jane",
+      "lastname": "Doe",
+      "company": "Acme Corp",
+      "jobtitle": "VP of Operations",
+      "message": "Looking for help cleaning up lead routing in HubSpot before the next quarter. Could someone walk me through pricing?",
+      "website_url": "",
+      "utm_source": "google",
+      "utm_medium": "cpc",
+      "utm_campaign": "q4-demo",
+      "pageUri": "https://www.example.com/contact?utm_source=google&utm_medium=cpc&utm_campaign=q4-demo",
+      "pageName": "Contact Sales",
+      "hutk": "0123456789abcdef0123456789abcdef"
+    }
+  },
+  {
+    "name": "Honeypot field filled by a form-filling bot",
+    "expectedVerdict": "block",
+    "ip": "198.51.100.23",
+    "secondsToFill": 30,
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+      "accept-language": "en-US,en;q=0.8",
+      "sec-fetch-site": "cross-site",
+      "sec-fetch-mode": "cors",
+      "sec-ch-ua": "\"Chromium\";v=\"129\""
+    },
+    "body": {
+      "email": "john.smith@acme.example",
+      "firstname": "John",
+      "lastname": "Smith",
+      "website_url": "https://spam-offers.example/landing",
+      "message": "Please contact me."
+    }
+  },
+  {
+    "name": "Disposable email provider",
+    "expectedVerdict": "block",
+    "ip": "198.51.100.40",
+    "secondsToFill": 25,
+    "headers": {
+      "user-agent": "Mozilla/5.0 (X11; Linux x86_64; rv:131.0) Gecko/20100101 Firefox/131.0",
+      "accept-language": "de-DE,de;q=0.9,en;q=0.6",
+      "sec-fetch-site": "same-site",
+      "sec-fetch-mode": "cors"
+    },
+    "body": {
+      "email": "free.trial.hunter@mailinator.com",
+      "firstname": "Max",
+      "lastname": "Mustermann",
+      "message": "Want the free trial."
+    }
+  },
+  {
+    "name": "Keyboard-smash gibberish in every text field",
+    "expectedVerdict": "block",
+    "ip": "198.51.100.77",
+    "secondsToFill": 12,
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+      "accept-language": "en-US",
+      "sec-fetch-site": "same-site",
+      "sec-fetch-mode": "cors",
+      "sec-ch-ua": "\"Chromium\";v=\"130\""
+    },
+    "body": {
+      "email": "asdfgh@acme.example",
+      "firstname": "asdfgh",
+      "lastname": "qwrtzpl",
+      "company": "xkcdvbnm",
+      "message": "sdfsdfsdfsdfsdfsdfsdfsdf"
+    }
+  },
+  {
+    "name": "LLM-written SEO pitch with unfilled template and link stuffing",
+    "expectedVerdict": "quarantine",
+    "ip": "203.0.113.55",
+    "secondsToFill": 95,
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+      "accept-language": "en-GB,en;q=0.9"
+    },
+    "body": {
+      "email": "outreach@growth-agency.example",
+      "firstname": "Sam",
+      "lastname": "Taylor",
+      "company": "Growth Agency",
+      "message": "Dear Sir/Madam, I hope this message finds you well. As an AI language model I noticed your site could rank your website on the first page of Google with SEO services and backlinks. Hello [Your Name], see https://growth-agency.example/a https://growth-agency.example/b https://growth-agency.example/c"
+    }
+  },
+  {
+    "name": "Scripted flood: HTTP library, no browser headers, same IP eight times",
+    "expectedVerdict": "block",
+    "ip": "198.51.100.99",
+    "secondsToFill": 0,
+    "repeat": 8,
+    "headers": {
+      "user-agent": "python-requests/2.32.3"
+    },
+    "body": {
+      "email": "lead@acme.example",
+      "firstname": "Lead",
+      "lastname": "Person",
+      "message": "hello"
+    }
+  },
+  {
+    "name": "Datacenter ASN reported by the edge, missing Accept-Language",
+    "expectedVerdict": "quarantine",
+    "ip": "203.0.113.200",
+    "secondsToFill": 20,
+    "env": { "ASN_LOOKUP_PROVIDER": "header" },
+    "headers": {
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:130.0) Gecko/20100101 Firefox/130.0",
+      "sec-fetch-site": "same-site",
+      "sec-fetch-mode": "cors",
+      "x-client-asn": "AS14061",
+      "x-client-asn-org": "DigitalOcean, LLC"
+    },
+    "body": {
+      "email": "procurement@acme.example",
+      "firstname": "Riley",
+      "lastname": "Chen",
+      "company": "Acme Corp",
+      "message": "Requesting a quote for the enterprise tier."
+    }
+  }
+]
