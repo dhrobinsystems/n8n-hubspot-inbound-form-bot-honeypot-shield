@@ -47,6 +47,8 @@ Flags are fail-safe: only `false`, `0`, `no`, or `off` disables them. `DRY_RUN=f
 
 ## Architecture
 
+![n8n Workflow Architecture](assets/workflow.png)
+
 ```
           Visitor's browser (your site)
                  │  1. GET  /v1/form-token          → { renderedAt, token }   (signed render time)
