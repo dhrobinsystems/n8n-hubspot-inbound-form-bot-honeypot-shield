@@ -1,0 +1,29 @@
+{
+  "name": "n8n-hubspot-inbound-form-bot-honeypot-shield",
+  "version": "1.0.0",
+  "description": "Express middleware + n8n workflow that screens HubSpot form submissions (honeypot, velocity, disposable email, gibberish/entropy, IP ASN reputation, browser and UTM integrity) and forwards clean leads or quarantines the rest. DRY_RUN and SANDBOX_MODE by default.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "simulate": "node src/server.js --simulate",
+    "test": "node --test tests/shield.test.js",
+    "build:workflow": "node scripts/build-n8n-workflow.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "keywords": ["n8n", "hubspot", "forms", "spam", "bot-detection", "honeypot", "revops", "express"],
+  "author": {
+    "name": "DH Robin | dhRobin Systems",
+    "url": "https://dhrobinsystems.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhrobinsystems/n8n-hubspot-inbound-form-bot-honeypot-shield.git"
+  }
+}
